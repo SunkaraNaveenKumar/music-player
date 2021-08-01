@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#forward{
+    border-radius: 10px;
+    color: crimson;
+    background-color: black;
+}
+#backward{
+    border-radius: 10px;
+    color: crimson;
+    background-color: black;
+}
+    </style>
+</head>
+<body>
+    <div style="background-color:black;color: crimson; border: 2px solid black;border-radius: 20px; display: inline-block; padding: 50px; text-align: center;">
+        <h2>Play List</h2>
+        <input type="text" name="username" id="" placeholder="search song by person name " onkeyup="OnKEYUP(event)"> <br>
+        <h3>Total Song List- <span id="count">0</span></h3>
+        <ul ></ul>
+     </div>
+    <br>
+  <div>
+    <audio controls > </audio> 
+    <br>
+    <button onclick="forward()" id="forward" >forward</button>
+    <button onclick="backward()" id="backward">backward</button>
+  </div>
+  
+      <script>
+         const inputHandle =  document.querySelector('input')
+         const countHandle=  document.querySelector('span')
+          const array1 = [
+              {name:'Naveen Sunkara',song:"[iSongs.info] 01 - Chitti.mp3"},
+          {name:'Sriramana',song:"ADHM - Channa Mereya.mp3"},
+          {name:'Yeswanth',song:'Kadhaippoma-MassTamilan.io.mp3'},
+        {name:'Naila Zameer',song:'Duniyaa - Luka Chuppi.mp3'}
+    ]
+         const ulHandle = document.querySelector('ul')
+         const audioHandle = document.querySelector('audio')
+         countHandle.innerHTML = array1.length
+         function ligenerator(array1){
+            array1.forEach(ele=>{
+             const liHandle = document.createElement('li')
+             liHandle.innerHTML = `${ele.name}`
+             ulHandle.appendChild(liHandle)
+             songPlay(liHandle)        
+         })
+         } 
+        
+ligenerator(array1)
+         ////////////////// song play 
+         function songPlay(liHandle){
+     
+            liHandle.addEventListener('click',function(){
+                
+                 const result = array1.find(ele=>{
+                     return liHandle.innerHTML == ele.name
+                 })
+                 audioHandle.src=result.song
+                 audioHandle.play()
+            })
+
+
+         }
+         ///////////////// forWard button
+function forward()
+{
+  const result1 = array1.findIndex(ele=>{
+      return audioHandle.getAttribute('src') == ele.song
+  })
+  
+  if(array1[result1+1]== undefined){
+      audioHandle.setAttribute('src',`${array1[0].song}`)
+      
+  }
+  else
+  {
+    audioHandle.setAttribute('src',`${array1[result1+1].song}`)
+  }
+audioHandle.play()
+}
+//////////////// backWard button
+function backward()
+{
+  const result1 = array1.findIndex(ele=>{
+      return audioHandle.getAttribute('src') == ele.song
+  })
+  
+  if(array1[result1-1]== undefined){
+      audioHandle.setAttribute('src',`${array1[array1.length-1].song}`)
+      
+  }
+  else
+  {
+    audioHandle.setAttribute('src',`${array1[result1-1].song}`)
+  }
+audioHandle.play()
+}
+////////////////// input box
+function OnKEYUP(e)
+{
+    e.preventDefault()
+    ulHandle.innerHTML=''
+    console.log(e.target.value)
+    
+    const searchResult = array1.filter(ele=>{
+        return ele.name.toLowerCase().includes(e.target.value.toLowerCase()) 
+    })
+    console.log(searchResult)
+    countHandle.innerHTML = searchResult.length
+    ligenerator(searchResult)
+}
+///////////////////////////////////
+      </script>
+</body>
+</html>
