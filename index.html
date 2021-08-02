@@ -6,36 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-#forward{
+.forward{
+    border-radius: 10px;
+    color: crimson;
+    background-color: black;
+   
+}
+.backward{
     border-radius: 10px;
     color: crimson;
     background-color: black;
 }
-#backward{
+#input{
     border-radius: 10px;
-    color: crimson;
-    background-color: black;
+    background-color: aqua;
+}
+h4{
+  color: aqua;
+}
+button{
+    margin: 10px;
+    border-bottom-width: 10px;
+    border-bottom-color: aqua;
+}
+li{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
 }
     </style>
 </head>
 <body>
     <div style="background-color:black;color: crimson; border: 2px solid black;border-radius: 20px; display: inline-block; padding: 50px; text-align: center;">
         <h2>Play List</h2>
-        <input type="text" name="username" id="" placeholder="search song by person name " onkeyup="OnKEYUP(event)"> <br>
+        <input type="text" name="username" id="input" placeholder="search song by person name " onkeyup="OnKEYUP(event)"> <br>
         <h3>Total Song List- <span id="count">0</span></h3>
         <ul ></ul>
      </div>
     <br>
   <div>
-    <audio controls > </audio> 
-    <br>
-    <button onclick="forward()" id="forward" >forward</button>
-    <button onclick="backward()" id="backward">backward</button>
+      <br>
+      <h4></h4>
+    <audio controls autoplay> </audio> 
+    <br> <br>
+    <button onclick="forward()" class="forward" >forward</button>
+    <button onclick="backward()" class="backward">backward</button>
   </div>
   
       <script>
+         
          const inputHandle =  document.querySelector('input')
          const countHandle=  document.querySelector('span')
+         const h4Handle = document.querySelector('h4')
           const array1 = [
               {name:'Naveen Sunkara',song:"[iSongs.info] 01 - Chitti.mp3"},
           {name:'Sriramana',song:"ADHM - Channa Mereya.mp3"},
@@ -59,10 +80,10 @@ ligenerator(array1)
          function songPlay(liHandle){
      
             liHandle.addEventListener('click',function(){
-                
                  const result = array1.find(ele=>{
                      return liHandle.innerHTML == ele.name
                  })
+            h4Handle.innerHTML = result.song
                  audioHandle.src=result.song
                  audioHandle.play()
             })
@@ -84,6 +105,7 @@ function forward()
   {
     audioHandle.setAttribute('src',`${array1[result1+1].song}`)
   }
+  h4Handle.innerHTML = audioHandle.getAttribute('src')
 audioHandle.play()
 }
 //////////////// backWard button
@@ -101,6 +123,7 @@ function backward()
   {
     audioHandle.setAttribute('src',`${array1[result1-1].song}`)
   }
+  h4Handle.innerHTML = audioHandle.getAttribute('src')
 audioHandle.play()
 }
 ////////////////// input box
@@ -118,6 +141,12 @@ function OnKEYUP(e)
     ligenerator(searchResult)
 }
 ///////////////////////////////////
+window.onload=function(){
+              const randomSong = Math.floor(Math.random()*array1.length)
+              audioHandle.setAttribute('src',`${array1[randomSong].song}`)
+              h4Handle.innerHTML = audioHandle.getAttribute('src')
+              audioHandle.autoplay()
+          }
       </script>
 </body>
 </html>
