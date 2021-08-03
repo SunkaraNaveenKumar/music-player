@@ -61,7 +61,13 @@ li{
               {name:'Naveen Sunkara',song:"[iSongs.info] 01 - Chitti.mp3"},
           {name:'Sriramana',song:"ADHM - Channa Mereya.mp3"},
           {name:'Yeswanth',song:'Kadhaippoma-MassTamilan.io.mp3'},
-        {name:'Naila Zameer',song:'Duniyaa - Luka Chuppi.mp3'}
+        {name:'Naila Zameer',song:'Duniyaa - Luka Chuppi.mp3'},
+        {name:'vishnu',song:'Marethuhoyithe-Sanjith-Hegde.mp3'},
+        {name:'vikram',song:'adi-penne-stephen-zechariah-128-kbps-sound.mp3'},
+        {name:'vamsi',song:'Illegal Weapon 2.0 - Street Dancer 3D 320 Kbps.mp3'},
+        {name:'charan',song:'Kanave-Kanave-MassTamilan.com.mp3'},
+        {name:'k.naveen',song:'Master Coming - [NaaSongs.World].mp3'}
+        
     ]
          const ulHandle = document.querySelector('ul')
          const audioHandle = document.querySelector('audio')
@@ -70,6 +76,7 @@ li{
             array1.forEach(ele=>{
              const liHandle = document.createElement('li')
              liHandle.innerHTML = `${ele.name}`
+             ulHandle.appendChild(document.createElement('br'))
              ulHandle.appendChild(liHandle)
              songPlay(liHandle)        
          })
@@ -140,7 +147,7 @@ function OnKEYUP(e)
     countHandle.innerHTML = searchResult.length
     ligenerator(searchResult)
 }
-///////////////////////////////////
+/////////////////////////////////// on reloading the page
 window.onload=function(){
               const randomSong = Math.floor(Math.random()*array1.length)
               audioHandle.setAttribute('src',`${array1[randomSong].song}`)
